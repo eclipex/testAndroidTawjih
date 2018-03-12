@@ -21,6 +21,9 @@ public class Inscription extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/code.otf");
         tx.setTypeface(custom_font);
         //end font load
+        if (1 == 2){
+
+        }
 
 
     }
