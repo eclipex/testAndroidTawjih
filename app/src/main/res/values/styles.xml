@@ -1,0 +1,46 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:ems">10</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/edit_text_background</item>
+    </style>
+
+    <style name="buttonStyle">
+        <item name="android:background">@drawable/button_styles_grad</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+    <style name="buttonStyleDark">
+        <item name="android:background">@drawable/btn_dark</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="editTextStyleInscription">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:background"> @drawable/edit_text_bordred</item>
+    </style>
+
+    <style name="textViewStyle">
+        <item name="android:color">@color/colorAccent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="spinner">
+
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/spinner_shape</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+</resources>

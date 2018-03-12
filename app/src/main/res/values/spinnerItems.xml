@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="regions">
+        <item>Tunis</item>
+        <item>Ariena</item>
+    </string-array>
+
+    <string-array name="TypeBac">
+        <item>Mathematiques</item>
+        <item>Lettres</item>
+        <item>Sport</item>
+        <item>Sciences de l\'informatique</item>
+        <item>Sciences Experimentales</item>
+        <item>Technique</item>
+    </string-array>
+
+</resources>
