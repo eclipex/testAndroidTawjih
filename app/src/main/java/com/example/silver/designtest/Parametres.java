@@ -19,7 +19,7 @@ public class Parametres extends AppCompatActivity {
     Spinner spinner;
     Button save;
     Intent intent;
-    String Bac[]= {"Mathematiques","Lettres","Informatique","Sciences","Technique","Sport"};
+    String Bac[]= {"Section BAC :" ,"Mathematiques","Lettres","Informatique","Sciences","Technique","Sport"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

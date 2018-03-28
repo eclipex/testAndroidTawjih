@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class Profile extends AppCompatActivity {
 
-    Button rech,mod;
+    Button rech,mod,score;
     Intent intent;
 
     @Override
@@ -18,7 +18,16 @@ public class Profile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rech = findViewById(R.id.rech);
+        score = findViewById(R.id.rech2);
         mod = findViewById(R.id.modifier);
+
+        score.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(getApplicationContext(), calculScore.class);
+                startActivity(intent);
+            }
+        });
 
 
         rech.setOnClickListener(new View.OnClickListener() {

@@ -8,9 +8,11 @@
     tools:context="com.example.silver.designtest.Profile">
 
     <RelativeLayout
-        android:background="@drawable/profile_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/profile_background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
     </RelativeLayout>
 
@@ -57,6 +59,22 @@
         app:layout_constraintTop_toBottomOf="@+id/Score"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/rech2"
+        style="@style/buttonStyle"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="108dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginStart="8dp"
+        android:text="Calcul score"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/Score"
         android:layout_width="wrap_content"
@@ -75,8 +93,8 @@
         style="@style/buttonStyle"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginStart="28dp"
         android:text="Recherches"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -84,14 +102,14 @@
     <Button
         android:id="@+id/modifier"
         style="@style/buttonStyle"
-        android:layout_width="135dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="18dp"
         android:layout_marginStart="68dp"
         android:text="Modifier Profil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toEndOf="@+id/rech" />
+
 </android.support.constraint.ConstraintLayout>

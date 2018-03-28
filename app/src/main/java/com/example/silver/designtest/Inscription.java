@@ -17,13 +17,11 @@ public class Inscription extends AppCompatActivity {
 
 
         //font : "CodeLight"
-        TextView tx = (TextView)findViewById(R.id.title);
+        TextView tx = findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/code.otf");
         tx.setTypeface(custom_font);
         //end font load
-        if (1 == 2){
 
-        }
 
 
     }
