@@ -35,7 +35,13 @@
         <activity
             android:name=".PassOublie"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".calculScore"></activity>
+        <activity
+            android:name=".CalculScorePrincipale"
+            android:parentActivityName=".SelectSession" />
+        <activity
+            android:name=".SelectSession"
+            android:parentActivityName=".Profile" />
+        <activity android:name=".CalculScoreControle"></activity>
     </application>
 
 </manifest>

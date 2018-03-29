@@ -24,7 +24,7 @@ public class Profile extends AppCompatActivity {
         score.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), calculScore.class);
+                intent = new Intent(getApplicationContext(), SelectSession.class);
                 startActivity(intent);
             }
         });
