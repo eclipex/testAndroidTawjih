@@ -20,7 +20,7 @@ public class SelectSession extends AppCompatActivity {
         principale = findViewById(R.id.principale);
 
 
-        controle.setOnClickListener(new View.OnClickListener() {
+        principale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -31,7 +31,7 @@ public class SelectSession extends AppCompatActivity {
             }
         });
 
-        principale.setOnClickListener(new View.OnClickListener() {
+        controle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

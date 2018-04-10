@@ -41,7 +41,9 @@
         <activity
             android:name=".SelectSession"
             android:parentActivityName=".Profile" />
-        <activity android:name=".CalculScoreControle"></activity>
+        <activity
+            android:name=".CalculScoreControle"
+            android:parentActivityName=".Profile"/>
     </application>
 
 </manifest>
