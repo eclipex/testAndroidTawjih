@@ -29,17 +29,17 @@
 
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/cin"
             style="@style/editTextStyle"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email/Cin"
-            android:inputType="textEmailAddress" />
+            android:hint="Cin" />
 
         <EditText
             android:hint="Mot de passe"
             style="@style/editTextStyle"
-            android:id="@+id/editText2"
+            android:id="@+id/pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
