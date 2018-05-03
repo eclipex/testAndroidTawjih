@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.silver.designtest">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_tawjih"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activités.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,33 +19,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Inscription"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Activités.Inscription"
+            android:parentActivityName=".Activités.MainActivity" />
         <activity
-            android:name=".Recherche"
-            android:parentActivityName=".Menu" />
-        <activity android:name=".Menu" />
+            android:name=".Activités.Recherche"
+            android:parentActivityName=".Activités.Menu" />
+        <activity android:name=".Activités.Menu" />
         <activity
-            android:name=".Resultats"
-            android:parentActivityName=".Recherche" />
+            android:name=".Activités.Resultats"
+            android:parentActivityName=".Activités.Recherche" />
         <activity
-            android:name=".Profile"
-            android:parentActivityName=".Menu" />
+            android:name=".Activités.Profil"
+            android:parentActivityName=".Activités.Menu" />
         <activity
-            android:name=".Parametres"
-            android:parentActivityName=".Menu" />
+            android:name=".Activités.Parametres"
+            android:parentActivityName=".Activités.Menu" />
         <activity
-            android:name=".PassOublie"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Activités.PassOublie"
+            android:parentActivityName=".Activités.MainActivity" />
         <activity
-            android:name=".CalculScorePrincipale"
-            android:parentActivityName=".SelectSession" />
+            android:name=".Activités.CalculScorePrincipale"
+            android:parentActivityName=".Activités.SelectSession" />
         <activity
-            android:name=".SelectSession"
-            android:parentActivityName=".Profile" />
+            android:name=".Activités.SelectSession"
+            android:parentActivityName=".Activités.Profil" />
         <activity
-            android:name=".CalculScoreControle"
-            android:parentActivityName=".Profile"/>
+            android:name=".Activités.CalculScoreControle"
+            android:parentActivityName=".Activités.Profil" />
+        <activity
+            android:name=".Activités.SelectSearchMethod"
+            android:parentActivityName=".Activités.Menu" />
+        <activity
+            android:name=".Activités.DiplomeSelected"
+            android:parentActivityName=".Activités.SelectSearchMethod" />
+        <activity android:name=".Activités.Favoris"></activity>
     </application>
 
 </manifest>

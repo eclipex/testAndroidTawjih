@@ -1,7 +1,9 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Activités;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.silver.designtest.R;
 
 public class PassOublie extends AppCompatActivity {
 

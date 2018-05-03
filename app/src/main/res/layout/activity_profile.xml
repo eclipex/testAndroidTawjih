@@ -4,112 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
-    tools:context="com.example.silver.designtest.Profile">
+    android:background="@color/colorPrimary"
+    tools:context="com.example.silver.designtest.Activités.Profil">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/profile_background"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-    </RelativeLayout>
+        android:background="@drawable/profile_background"></RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
+        android:src="@drawable/ic_prof"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_account_circle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="Nom et prenom"
-
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/bac"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Type Bac"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scr" />
+
+    <TextView
+        android:id="@+id/scr"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bac" />
+
+    <TextView
+        android:id="@+id/cin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mail" />
+
+
+    <Button
+        android:gravity="center_vertical"
+        android:drawablePadding="20dp"
+        android:paddingLeft="7dp"
+        android:drawableLeft="@drawable/ic_scorecalc_profile"
+        android:id="@+id/changeScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/btn_menu"
+        android:text="Calcul score"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/modifier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/rech"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Type Bac"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/btn_menu"
+        android:text="Lancer une recherche"
+        android:textAllCaps="false"
+        android:gravity="center_vertical"
+        android:drawablePadding="20dp"
+        android:paddingLeft="7dp"
+        android:drawableLeft="@drawable/ic_search_profile"
+        app:layout_constraintBottom_toTopOf="@+id/changeScore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Score"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/cin"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/rech2"
-        style="@style/buttonStyle"
-        android:layout_width="130dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="20dp"
+        android:paddingLeft="7dp"
+        android:drawableLeft="@drawable/ic_modify_profile"
+        android:id="@+id/modifier"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="108dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginStart="8dp"
-        android:text="Calcul score"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.972"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/Score"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Score"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <Button
-        android:id="@+id/rech"
-        style="@style/buttonStyle"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:layout_marginStart="28dp"
-        android:text="Recherches"
+        android:background="@drawable/btn_menu"
+        android:text="Modifier vos informations"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/modifier"
-        style="@style/buttonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="68dp"
-        android:text="Modifier Profil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rech" />
 
 </android.support.constraint.ConstraintLayout>

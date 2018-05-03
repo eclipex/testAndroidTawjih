@@ -1,14 +1,16 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Activités;
 
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.silver.designtest.Api.ApiClient;
+import com.example.silver.designtest.Api.ApiInterface;
+import com.example.silver.designtest.Modeles.UserPOJO;
+import com.example.silver.designtest.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +37,7 @@ public class Inscription extends AppCompatActivity {
         nom = findViewById(R.id.nom);
         prenom = findViewById(R.id.prenom);
         pass = findViewById(R.id.pass);
-        section = findViewById(R.id.section);
+        section = findViewById(R.id.etablissements);
         score = findViewById(R.id.score);
         valider = findViewById(R.id.valider);
 
@@ -48,6 +50,7 @@ public class Inscription extends AppCompatActivity {
                 nomContent = nom.getText().toString();
                 prenomContent = prenom.getText().toString();
                 passContent = pass.getText().toString();
+
                 if ( !cin.getText().toString().equals(""))
                     cinContent = Integer.parseInt( cin.getText().toString());
                 if ( !section.getText().toString().equals(""))

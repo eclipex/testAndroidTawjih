@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".CalculScoreControle">
+    tools:context=".Activités.CalculScoreControle">
 
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_marginTop="8dp"
         android:text="Selectionnez votre section : "
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerSection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.615" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerSection"
         style="@style/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         android:text="Valider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSection" />
 
     <ScrollView
         android:layout_width="0dp"

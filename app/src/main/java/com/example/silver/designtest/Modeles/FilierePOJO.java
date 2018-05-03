@@ -1,16 +1,18 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Modeles;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SectionPOJO {
-
-    //POJO = Modele
+public class FilierePOJO {
 
     @SerializedName("id")
-    private String id;
+    public String id;
 
     @SerializedName("Designation")
-    private String designation;
+    public String designation;
+
+    @SerializedName("Domaine")
+    public String domaine;
+
 
     public String getId() {
         return id;
@@ -25,6 +27,14 @@ public class SectionPOJO {
     }
 
     public void setDesignation(String designation) {
-        this.designation = designation;
+        designation = designation;
+    }
+
+    public String getDomaine() {
+        return domaine;
+    }
+
+    public void setDomaine(String domaine) {
+        domaine = domaine;
     }
 }

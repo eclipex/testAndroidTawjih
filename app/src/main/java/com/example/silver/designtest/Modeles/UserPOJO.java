@@ -1,4 +1,4 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Modeles;
 
 import com.google.gson.annotations.SerializedName;
 

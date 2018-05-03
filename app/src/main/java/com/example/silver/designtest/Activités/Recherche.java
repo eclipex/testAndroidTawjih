@@ -1,4 +1,4 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Activités;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import com.example.silver.designtest.R;
 
 public class Recherche extends AppCompatActivity {
 
@@ -33,10 +35,10 @@ public class Recherche extends AppCompatActivity {
         Spinner spinner3 =  findViewById(R.id.diplome);
         Spinner spinner4 =  findViewById(R.id.region);
 
-        CreateSpinner( spinner4);
-        CreateSpinner( spinner3);
-        CreateSpinner( spinner2);
-        CreateSpinner( spinner1);
+        CreateSpinner(spinner4);
+        CreateSpinner(spinner3);
+        CreateSpinner(spinner2);
+        CreateSpinner(spinner1);
 
 
 

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ededed"
+    tools:context=".Activités.Favoris">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.065">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_fav"
+                android:fontFamily="@font/codebold"
+                android:gravity="center"
+                android:text="Favoris "
+                android:textSize="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/fav_layout"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/consult1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:background="@drawable/pagination_fav_start"
+                        android:padding="10dp"
+                        android:text="Consulter le diplome"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorAccent"
+                        tools:ignore="HardcodedText" />
+
+                    <Button
+                        android:id="@+id/delete1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:background="#5296A5"
+                        android:padding="10dp"
+                        android:text="Supprimer de la liste"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/pagination_fav"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="1"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/filiere1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_diploma_1"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
+                    android:text="Filiere : Licence Appliquée En technologies informatiques" />
+
+                <TextView
+                    android:id="@+id/etab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_university_1"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Etablissement : Institut superieur des etudes technologiques de zaghouan" />
+
+                <TextView
+                    android:id="@+id/code1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_code"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Code : 20553"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/section1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_bac"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Section : Sciences Experimentales" />
+
+                <TextView
+                    android:id="@+id/scr1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_score"
+
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Score : 125" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/fav_layout"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/consult2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:background="@drawable/pagination_fav_start"
+                        android:padding="10dp"
+                        android:text="Consulter le diplome"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorAccent" />
+
+                    <Button
+                        android:id="@+id/delete2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:background="#5296A5"
+                        android:padding="10dp"
+                        android:text="Supprimer de la liste"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/textView123"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/pagination_fav"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="2"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/filiere2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_diploma_1"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Filiere : Licence Appliquée En technologies informatiques" />
+
+                <TextView
+                    android:id="@+id/etab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_university_1"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Etablissement : Institut superieur des etudes technologiquese de zaghouan" />
+
+                <TextView
+                    android:id="@+id/code2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_code"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Code : 20553" />
+
+                <TextView
+                    android:id="@+id/section2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_bac"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Section : Sciences Experimentales" />
+
+                <TextView
+                    android:id="@+id/scr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_score"
+
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="25dp"
+                    android:text="Score : 125" />
+
+
+                <!-- bugg scroll view fixes -->
+
+                <!-- bugg scroll view fixes -->
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

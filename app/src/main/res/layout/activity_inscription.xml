@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.silver.designtest.Inscription"
+    tools:context="com.example.silver.designtest.Activités.Inscription"
     android:id="@+id/relativeLayout">
 
     <EditText
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/prenom" />
 
     <EditText
-        android:id="@+id/section"
+        android:id="@+id/etablissements"
         style="@style/editTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,6 +125,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/section" />
+        app:layout_constraintTop_toBottomOf="@+id/etablissements" />
 
 </android.support.constraint.ConstraintLayout>

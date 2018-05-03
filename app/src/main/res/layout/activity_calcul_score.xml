@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:id="@+id/layout"
     android:background="@color/colorPrimary"
-    tools:context="com.example.silver.designtest.CalculScorePrincipale">
+    tools:context="com.example.silver.designtest.Activités.CalculScorePrincipale">
 
 
     <TextView
         android:id="@+id/textView4"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="27dp"
         android:layout_marginBottom="8dp"
@@ -19,7 +20,7 @@
         android:layout_marginTop="8dp"
         android:text="Selectionnez votre section : "
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerSection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,48 +28,37 @@
         app:layout_constraintVertical_bias="0.615" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerSection"
         style="@style/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="305dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/show"
-        style="@style/buttonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="Valider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
     <ScrollView
+
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:scrollbarStyle="insideInset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show">
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSection">
 
         <LinearLayout
+
             android:id="@+id/addLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bgr_score"
             android:orientation="vertical">
 
         </LinearLayout>

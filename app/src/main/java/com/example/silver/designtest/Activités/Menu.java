@@ -1,15 +1,18 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Activités;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
+
+import com.example.silver.designtest.R;
 
 public class Menu extends AppCompatActivity {
 
 
-    ImageView rech,param,profil,disc;
+    Button rech,param,profil,disc;
     Intent intent;
 
     @Override
@@ -19,15 +22,15 @@ public class Menu extends AppCompatActivity {
 
 
 
-        rech =  findViewById(R.id.icRech);
-        param =  findViewById(R.id.icSetting);
-        profil =  findViewById(R.id.icProfil);
-        disc =  findViewById(R.id.icDisc);
+        rech =  findViewById(R.id.recherche);
+        param =  findViewById(R.id.param);
+        profil =  findViewById(R.id.profil);
+        disc =  findViewById(R.id.logout);
 
         param.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), Parametres.class);
+                intent = new Intent(getApplicationContext(), Favoris.class);
                 startActivity(intent);
             }
         });
@@ -36,13 +39,17 @@ public class Menu extends AppCompatActivity {
         rech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), Recherche.class);
+                intent = new Intent(getApplicationContext(), SelectSearchMethod.class);
                 startActivity(intent);
             }
         });
         disc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("User", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
@@ -51,7 +58,7 @@ public class Menu extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), Profile.class);
+                intent = new Intent(getApplicationContext(), Profil.class);
                 startActivity(intent);
             }
         });

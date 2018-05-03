@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/list_background"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/designation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Designation"
+        android:drawableLeft="@drawable/ic_diploma_1"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/domaine"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/designation"
+        android:text="Domaine"
+        android:drawableLeft="@drawable/ic_maps_and_flags"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        />
+</RelativeLayout>

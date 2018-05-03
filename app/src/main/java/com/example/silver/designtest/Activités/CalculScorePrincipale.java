@@ -1,15 +1,16 @@
-package com.example.silver.designtest;
+package com.example.silver.designtest.Activités;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,60 +19,75 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.silver.designtest.Api.ApiClient;
+import com.example.silver.designtest.Api.ApiInterface;
+import com.example.silver.designtest.Modeles.UserPOJO;
+import com.example.silver.designtest.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CalculScorePrincipale extends AppCompatActivity {
 
     Spinner spinner;
-    ConstraintLayout layout;
-    Button show;
-    Intent intent;
+    ApiInterface apiInterface;
+
     int oldPos;
-    String Bac[]= {"Section Bac : ","Mathematiques","Lettres","Informatique","Sciences", "Technique","Sport", "Economie gestion"};
+    String Bac[]= {"Section Bac : ","Mathematiques","Lettres",
+            "Sciences Informatiques","Sciences Experimentales", "Technique","Sport", "Economie et Gestion"};
+
+
+    @SuppressLint("ResourceAsColor")
+    void applyStyle (EditText item){
+
+        item.setGravity(Gravity.CENTER);
+        item.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+        item.setBackgroundResource(R.drawable.edit_text_background);
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul_score);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
-        spinner = findViewById(R.id.spinner );
+        spinner = findViewById(R.id.spinnerSection);
         CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter();
         spinner.setAdapter(customSpinnerAdapter);
 
-
-        show = findViewById(R.id.show);
-        //si l'utilisateur clique 2 fois sur le boutton valider
-        oldPos = -1;
-        show.setOnClickListener(new View.OnClickListener() {
-
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
-            public void onClick(View view) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                int pos = spinner.getSelectedItemPosition();
 
-                if ( pos != oldPos){
+                if ( i != oldPos) {
 
-                    oldPos = pos;
+                    oldPos = i;
                     LinearLayout linearLayout = findViewById(R.id.addLayout);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0,5,0,10);
+                    params.setMargins(50, 5, 50, 5);
+
+                    LinearLayout.LayoutParams firstparam = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    firstparam.setMargins(50, 15, 50, 5);
+
+                    LinearLayout.LayoutParams lastparam = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    lastparam.setMargins(50, 5, 50, 15);
 
 
-                    switch (spinner.getSelectedItemPosition())
-                    {
-                        case 0:
-                            //effacer l'ancien contenu du layout si l'utilisateur a deja choisi une section
-                            if (linearLayout.getChildCount() > 0)
-                                linearLayout.removeAllViews();
 
-                            Toast.makeText(getApplicationContext(), "Veillez selectionner une section ", Toast.LENGTH_LONG).show();
-                            break;
+                    switch (spinner.getSelectedItemPosition()) {
+
                         case 1:
-
-
                             if (linearLayout.getChildCount() > 0)
                                 linearLayout.removeAllViews();
 
@@ -81,7 +97,6 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             final EditText physique = new EditText(getApplicationContext());
                             final EditText francais = new EditText(getApplicationContext());
                             final EditText anglais = new EditText(getApplicationContext());
-
 
 
                             math.setHint("Maths");
@@ -106,13 +121,12 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             francais.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-
-                            sciences.setLayoutParams(params);
+                            sciences.setLayoutParams(lastparam);
                             physique.setLayoutParams(params);
                             anglais.setLayoutParams(params);
                             math.setLayoutParams(params);
                             francais.setLayoutParams(params);
-                            moyenne.setLayoutParams(params);
+                            moyenne.setLayoutParams(firstparam);
 
                             linearLayout.addView(moyenne);
                             linearLayout.addView(math);
@@ -122,23 +136,25 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             linearLayout.addView(sciences);
 
 
-
                             Button btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
+
                             linearLayout.addView(btnTest);
                             btnTest.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
 
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             math.getText().toString().isEmpty() || sciences.getText().toString().isEmpty()
                                                     || francais.getText().toString().isEmpty() || anglais.getText().toString().isEmpty() ||
-                                                    physique.getText().toString().isEmpty() || sciences.getText().toString().isEmpty() ;
+                                                    physique.getText().toString().isEmpty() || sciences.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float mathNote = Float.parseFloat(String.valueOf(math.getText()));
@@ -183,19 +199,17 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 1);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
 
                                 }
 
                             });
 
-                            break ;
+                            break;
 
                         case 2:
                             if (linearLayout.getChildCount() > 0)
@@ -205,7 +219,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             final EditText L_moyenne = new EditText(getApplicationContext());
                             final EditText L_philo = new EditText(getApplicationContext());
                             final EditText L_his_geo = new EditText(getApplicationContext());
-                            final EditText L_francais= new EditText(getApplicationContext());
+                            final EditText L_francais = new EditText(getApplicationContext());
                             final EditText L_anglais = new EditText(getApplicationContext());
 
                             L_arabe.setHint("Arabe");
@@ -232,14 +246,12 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             L_francais.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-
-                            L_moyenne.setLayoutParams(params);
+                            L_moyenne.setLayoutParams(firstparam);
                             L_arabe.setLayoutParams(params);
                             L_philo.setLayoutParams(params);
                             L_his_geo.setLayoutParams(params);
                             L_anglais.setLayoutParams(params);
-                            L_francais.setLayoutParams(params);
-
+                            L_francais.setLayoutParams(lastparam);
 
 
                             linearLayout.addView(L_moyenne);
@@ -251,22 +263,23 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
                             linearLayout.addView(btnTest);
 
                             btnTest.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             L_arabe.getText().toString().isEmpty() || L_moyenne.getText().toString().isEmpty()
                                                     || L_philo.getText().toString().isEmpty() || L_his_geo.getText().toString().isEmpty() ||
-                                                    L_anglais.getText().toString().isEmpty() || L_francais.getText().toString().isEmpty() ;
+                                                    L_anglais.getText().toString().isEmpty() || L_francais.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float moyenneNote = Float.parseFloat(String.valueOf(L_moyenne.getText()));
@@ -282,7 +295,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
                                         float philoNote = Float.parseFloat(String.valueOf(L_philo.getText()));
-                                        if (philoNote> 20 || philoNote < 0) {
+                                        if (philoNote > 20 || philoNote < 0) {
                                             L_philo.setError("Tapez une note valide");
                                             allFieldsAreCorrect = false;
                                         }
@@ -306,25 +319,22 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
 
-
-                                        scoreCalcul = (float) (5*moyenneNote + 1.5*arabeNote + 1.5*philoNote + 1*his_geoNote + 0.5*francaisNote + 0.5*anglaisNote);
+                                        scoreCalcul = (float) (5 * moyenneNote + 1.5 * arabeNote + 1.5 * philoNote + 1 * his_geoNote + 0.5 * francaisNote + 0.5 * anglaisNote);
                                     }
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 4);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
                                 }
 
                             });
                             break;
 
-                        case 3 :
+                        case 3:
                             if (linearLayout.getChildCount() > 0)
                                 linearLayout.removeAllViews();
 
@@ -334,7 +344,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             final EditText I_physique = new EditText(getApplicationContext());
                             final EditText I_TIC = new EditText(getApplicationContext());
                             final EditText I_BD = new EditText(getApplicationContext());
-                            final EditText I_francais= new EditText(getApplicationContext());
+                            final EditText I_francais = new EditText(getApplicationContext());
                             final EditText I_anglais = new EditText(getApplicationContext());
 
                             I_algo.setHint("Algorithm");
@@ -366,16 +376,14 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             I_francais.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-
-                            I_moyenne.setLayoutParams(params);
+                            I_moyenne.setLayoutParams(firstparam);
                             I_algo.setLayoutParams(params);
                             I_math.setLayoutParams(params);
                             I_physique.setLayoutParams(params);
                             I_BD.setLayoutParams(params);
                             I_TIC.setLayoutParams(params);
                             I_anglais.setLayoutParams(params);
-                            I_francais.setLayoutParams(params);
-
+                            I_francais.setLayoutParams(lastparam);
 
 
                             linearLayout.addView(I_moyenne);
@@ -389,9 +397,11 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
                             linearLayout.addView(btnTest);
 
 
@@ -399,14 +409,14 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
 
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             I_moyenne.getText().toString().isEmpty() || I_algo.getText().toString().isEmpty()
                                                     || I_math.getText().toString().isEmpty() || I_physique.getText().toString().isEmpty() ||
                                                     I_anglais.getText().toString().isEmpty() || I_francais.getText().toString().isEmpty()
                                                     || I_TIC.getText().toString().isEmpty() || I_BD.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float moyenneNote = Float.parseFloat(String.valueOf(I_moyenne.getText()));
@@ -422,7 +432,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
                                         float mathNote = Float.parseFloat(String.valueOf(I_math.getText()));
-                                        if (mathNote> 20 || mathNote < 0) {
+                                        if (mathNote > 20 || mathNote < 0) {
                                             I_math.setError("Tapez une note valide");
                                             allFieldsAreCorrect = false;
                                         }
@@ -458,21 +468,16 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
 
-
-
-
-                                        scoreCalcul = (float) (5*moyenneNote + 1.5*mathNote + 1.5*algoNote + 0.5*physiqueNote + 0.5*francaisNote + 0.5*anglaisNote + 0.25*(ticNote+bdNote));
+                                        scoreCalcul = (float) (5 * moyenneNote + 1.5 * mathNote + 1.5 * algoNote + 0.5 * physiqueNote + 0.5 * francaisNote + 0.5 * anglaisNote + 0.25 * (ticNote + bdNote));
                                     }
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 3);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
                                 }
 
                             });
@@ -486,7 +491,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             final EditText sc_vieEtTerre = new EditText(getApplicationContext());
                             final EditText sc_moyenne = new EditText(getApplicationContext());
                             final EditText sc_physique = new EditText(getApplicationContext());
-                            final EditText sc_francais= new EditText(getApplicationContext());
+                            final EditText sc_francais = new EditText(getApplicationContext());
                             final EditText sc_anglais = new EditText(getApplicationContext());
 
                             sc_vieEtTerre.setHint("Science vie et terre");
@@ -512,13 +517,12 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             sc_francais.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-
-                            sc_moyenne.setLayoutParams(params);
+                            sc_moyenne.setLayoutParams(firstparam);
                             sc_vieEtTerre.setLayoutParams(params);
                             sc_math.setLayoutParams(params);
                             sc_physique.setLayoutParams(params);
                             sc_anglais.setLayoutParams(params);
-                            sc_francais.setLayoutParams(params);
+                            sc_francais.setLayoutParams(lastparam);
 
 
                             linearLayout.addView(sc_moyenne);
@@ -530,23 +534,26 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
                             linearLayout.addView(btnTest);
+
 
 
                             btnTest.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
 
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             sc_moyenne.getText().toString().isEmpty() || sc_vieEtTerre.getText().toString().isEmpty()
                                                     || sc_math.getText().toString().isEmpty() || sc_physique.getText().toString().isEmpty() ||
                                                     sc_anglais.getText().toString().isEmpty() || sc_francais.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float moyenneNote = Float.parseFloat(String.valueOf(sc_moyenne.getText()));
@@ -562,7 +569,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
                                         float mathNote = Float.parseFloat(String.valueOf(sc_math.getText()));
-                                        if (mathNote> 20 || mathNote < 0) {
+                                        if (mathNote > 20 || mathNote < 0) {
                                             sc_math.setError("Tapez une note valide");
                                             allFieldsAreCorrect = false;
                                         }
@@ -586,18 +593,16 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
 
-                                        scoreCalcul = (float) (5*moyenneNote + 1*mathNote + 1.5*scVieTerreNote + 1.5*physiqueNote +0.5*francaisNote+0.5*anglaisNote);
+                                        scoreCalcul = (float) (5 * moyenneNote + 1 * mathNote + 1.5 * scVieTerreNote + 1.5 * physiqueNote + 0.5 * francaisNote + 0.5 * anglaisNote);
                                     }
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 2);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
                                 }
 
                             });
@@ -613,7 +618,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             final EditText T_technique = new EditText(getApplicationContext());
                             final EditText T_moyenne = new EditText(getApplicationContext());
                             final EditText T_physique = new EditText(getApplicationContext());
-                            final EditText T_francais= new EditText(getApplicationContext());
+                            final EditText T_francais = new EditText(getApplicationContext());
                             final EditText T_anglais = new EditText(getApplicationContext());
 
                             T_technique.setHint("Techniquee");
@@ -639,14 +644,12 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             T_francais.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-
-                            T_moyenne.setLayoutParams(params);
+                            T_moyenne.setLayoutParams(firstparam);
                             T_technique.setLayoutParams(params);
                             T_math.setLayoutParams(params);
                             T_physique.setLayoutParams(params);
                             T_anglais.setLayoutParams(params);
-                            T_francais.setLayoutParams(params);
-
+                            T_francais.setLayoutParams(lastparam);
 
 
                             linearLayout.addView(T_moyenne);
@@ -658,22 +661,23 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
                             linearLayout.addView(btnTest);
-
 
                             btnTest.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             T_moyenne.getText().toString().isEmpty() || T_technique.getText().toString().isEmpty()
                                                     || T_math.getText().toString().isEmpty() || T_physique.getText().toString().isEmpty() ||
                                                     T_anglais.getText().toString().isEmpty() || T_francais.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float moyenneNote = Float.parseFloat(String.valueOf(T_moyenne.getText()));
@@ -689,7 +693,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
                                         float mathNote = Float.parseFloat(String.valueOf(T_math.getText()));
-                                        if (mathNote> 20 || mathNote < 0) {
+                                        if (mathNote > 20 || mathNote < 0) {
                                             T_math.setError("Tapez une note valide");
                                             allFieldsAreCorrect = false;
                                         }
@@ -713,20 +717,18 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
 
-                                        scoreCalcul = (float) (5*moyenneNote + 1.5*mathNote + 1.5*techniqueNote + 1*physiqueNote + 0.5*francaisNote  + 0.5*anglaisNote);
+                                        scoreCalcul = (float) (5 * moyenneNote + 1.5 * mathNote + 1.5 * techniqueNote + 1 * physiqueNote + 0.5 * francaisNote + 0.5 * anglaisNote);
 
 
                                     }
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 7);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
                                 }
 
                             });
@@ -742,7 +744,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             final EditText S_spTh = new EditText(getApplicationContext());
                             final EditText S_moyenne = new EditText(getApplicationContext());
                             final EditText S_spPr = new EditText(getApplicationContext());
-                            final EditText S_francais= new EditText(getApplicationContext());
+                            final EditText S_francais = new EditText(getApplicationContext());
                             final EditText S_anglais = new EditText(getApplicationContext());
                             final EditText S_sport = new EditText(getApplicationContext());
                             final EditText S_physique = new EditText(getApplicationContext());
@@ -769,7 +771,6 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             applyStyle(S_philo);
 
 
-
                             S_vieEtTerre.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                             S_spTh.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                             S_spPr.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -781,7 +782,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             S_philo.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-                            S_moyenne.setLayoutParams(params);
+                            S_moyenne.setLayoutParams(firstparam);
                             S_vieEtTerre.setLayoutParams(params);
                             S_spTh.setLayoutParams(params);
                             S_spPr.setLayoutParams(params);
@@ -789,8 +790,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             S_francais.setLayoutParams(params);
                             S_sport.setLayoutParams(params);
                             S_physique.setLayoutParams(params);
-                            S_philo.setLayoutParams(params);
-
+                            S_philo.setLayoutParams(lastparam);
 
 
                             linearLayout.addView(S_moyenne);
@@ -805,17 +805,18 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
                             linearLayout.addView(btnTest);
-
 
                             btnTest.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
 
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             S_moyenne.getText().toString().isEmpty() || S_vieEtTerre.getText().toString().isEmpty()
                                                     || S_spTh.getText().toString().isEmpty() || S_spPr.getText().toString().isEmpty() ||
@@ -823,7 +824,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                                     || S_sport.getText().toString().isEmpty() || S_physique.getText().toString().isEmpty()
                                                     || S_philo.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float moyenneNote = Float.parseFloat(String.valueOf(S_moyenne.getText()));
@@ -839,7 +840,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
                                         float spThNote = Float.parseFloat(String.valueOf(S_spTh.getText()));
-                                        if (spThNote> 20 || spThNote < 0) {
+                                        if (spThNote > 20 || spThNote < 0) {
                                             S_spTh.setError("Tapez une note valide");
                                             allFieldsAreCorrect = false;
                                         }
@@ -881,18 +882,16 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
 
-                                        scoreCalcul = (float) (5*moyenneNote + 1*svtNote + 0.5*(spThNote+spPrNote) + 1*sportNote +0.5*physiqueNote + 0.25*(francaisNote+anglaisNote)+ 1*philoNote);
+                                        scoreCalcul = (float) (5 * moyenneNote + 1 * svtNote + 0.5 * (spThNote + spPrNote) + 1 * sportNote + 0.5 * physiqueNote + 0.25 * (francaisNote + anglaisNote) + 1 * philoNote);
                                     }
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 6);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
                                 }
 
                             });
@@ -905,10 +904,10 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             final EditText E_eco = new EditText(getApplicationContext());
-                            final EditText E_gestion= new EditText(getApplicationContext());
+                            final EditText E_gestion = new EditText(getApplicationContext());
                             final EditText E_moyenne = new EditText(getApplicationContext());
                             final EditText E_hisGeo = new EditText(getApplicationContext());
-                            final EditText E_francais= new EditText(getApplicationContext());
+                            final EditText E_francais = new EditText(getApplicationContext());
                             final EditText E_anglais = new EditText(getApplicationContext());
                             final EditText E_math = new EditText(getApplicationContext());
 
@@ -929,7 +928,6 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             applyStyle(E_math);
 
 
-
                             E_eco.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                             E_gestion.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                             E_hisGeo.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -939,15 +937,13 @@ public class CalculScorePrincipale extends AppCompatActivity {
                             E_math.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
-
-                            E_moyenne.setLayoutParams(params);
+                            E_moyenne.setLayoutParams(firstparam);
                             E_eco.setLayoutParams(params);
                             E_gestion.setLayoutParams(params);
                             E_hisGeo.setLayoutParams(params);
                             E_anglais.setLayoutParams(params);
                             E_francais.setLayoutParams(params);
-                            E_math.setLayoutParams(params);
-
+                            E_math.setLayoutParams(lastparam);
 
 
                             linearLayout.addView(E_moyenne);
@@ -960,9 +956,11 @@ public class CalculScorePrincipale extends AppCompatActivity {
 
 
                             btnTest = new Button(getApplicationContext());
-                            btnTest.setText("Recuperer");
-                            btnTest.setBackgroundResource(R.drawable.button_styles_grad);
-                            btnTest.setLayoutParams(params);
+                            btnTest.setText("Calculer");
+                            btnTest.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
+                            btnTest.setBackgroundResource(R.drawable.btn_menu);
+                            btnTest.setAllCaps(false);
+                            btnTest.setLayoutParams(lastparam);
                             linearLayout.addView(btnTest);
 
 
@@ -970,14 +968,14 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
 
-                                    float scoreCalcul= 0;
+                                    float scoreCalcul = 0;
                                     boolean fieldsEmpty =
                                             E_moyenne.getText().toString().isEmpty() || E_eco.getText().toString().isEmpty()
                                                     || E_gestion.getText().toString().isEmpty() || E_anglais.getText().toString().isEmpty() ||
                                                     E_francais.getText().toString().isEmpty() || E_math.getText().toString().isEmpty()
                                                     || E_hisGeo.getText().toString().isEmpty();
 
-                                    boolean allFieldsAreCorrect = true ;
+                                    boolean allFieldsAreCorrect = true;
                                     if (!fieldsEmpty) {
 
                                         float moyenneNote = Float.parseFloat(String.valueOf(E_moyenne.getText()));
@@ -993,7 +991,7 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                         }
 
                                         float gestionNote = Float.parseFloat(String.valueOf(E_gestion.getText()));
-                                        if (gestionNote> 20 || gestionNote < 0) {
+                                        if (gestionNote > 20 || gestionNote < 0) {
                                             E_gestion.setError("Tapez une note valide");
                                             allFieldsAreCorrect = false;
                                         }
@@ -1022,54 +1020,76 @@ public class CalculScorePrincipale extends AppCompatActivity {
                                             allFieldsAreCorrect = false;
                                         }
 
-                                        scoreCalcul = (float) (5*moyenneNote + 1.5*ecoNote + 1.5*gestionNote + 0.5*mathNote + 0.5*hisgeoNote +0.5*francaisNote+0.5*anglaisNote);
+                                        scoreCalcul = (float) (5 * moyenneNote + 1.5 * ecoNote + 1.5 * gestionNote + 0.5 * mathNote + 0.5 * hisgeoNote + 0.5 * francaisNote + 0.5 * anglaisNote);
 
                                     }
                                     if (allFieldsAreCorrect && !fieldsEmpty) {
 
                                         Toast.makeText(getApplicationContext(), "Votre score est : " + scoreCalcul, Toast.LENGTH_LONG).show();
-                                        confirmScore(scoreCalcul);
-                                    }
+                                        confirmScore(scoreCalcul, 5);
+                                    } else if (fieldsEmpty)
+                                        Toast.makeText(getApplicationContext(), "Veillez remplir tous les champs ", Toast.LENGTH_LONG).show();
                                     else
-                                    if (fieldsEmpty)
-                                        Toast.makeText(getApplicationContext(),"Veillez remplir tous les champs ",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"Veillez verifier les champs erronées ",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Veillez verifier les champs erronées ", Toast.LENGTH_LONG).show();
                                 }
 
                             });
                             break;
 
 
-
-
-
-
                     }
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
 
 
+
+
+
     }
 
-    private void confirmScore(float score) {
+    private void confirmScore(final float score , final int section) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(CalculScorePrincipale.this);
-        builder.setMessage("Votre score est : "+score+"\nSauvegarder ? ")
+        builder.setMessage("Votre score est : "+score+"\nVous voulez sauvegarder ce score dans votre profil ? ")
                 .setTitle("Confirmation de Score")
                 .setPositiveButton("Confimer", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(CalculScorePrincipale.this,"Confirmé",Toast.LENGTH_LONG).show();
+                                Toast.makeText(CalculScorePrincipale.this,"Profil Mis a jour",Toast.LENGTH_LONG).show();
+                                SharedPreferences sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
+                                apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
+                                Call<UserPOJO> call = apiInterface.ModifyUser(sharedPreferences.getInt("idUser",0),null,
+                                        null,null,null,null, section,score);
+                                call.enqueue(new Callback<UserPOJO>() {
+                                    @Override
+                                    public void onResponse(Call<UserPOJO> call, Response<UserPOJO> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<UserPOJO> call, Throwable t) {
+
+                                    }
+                                });
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putFloat("scoreUser",score);
+                                editor.putInt("sectionUser",section);
+                                editor.apply();
+
                             }
                         }
                 )
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(CalculScorePrincipale.this,"Annulé",Toast.LENGTH_LONG).show();
+                        Toast.makeText(CalculScorePrincipale.this,"Score inchangé",Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -1088,18 +1108,6 @@ public class CalculScorePrincipale extends AppCompatActivity {
         dialog.show();
     }
 
-
-
-
-
-    void applyStyle (EditText item){
-
-        item.setGravity(Gravity.CENTER);
-        item.setBackgroundResource(R.drawable.edit_text_background);
-        item.setHintTextColor(getResources().getColor(R.color.colorPrimaryDark));
-        item.setTextSize(20);
-        item.setPadding(20,20,20,20);
-    }
 
 
 
