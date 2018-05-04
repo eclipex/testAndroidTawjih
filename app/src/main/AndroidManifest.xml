@@ -52,7 +52,11 @@
         <activity
             android:name=".Activités.DiplomeSelected"
             android:parentActivityName=".Activités.SelectSearchMethod" />
-        <activity android:name=".Activités.Favoris"></activity>
+        <activity android:name=".Activités.Favoris" />
+        <activity
+            android:name=".Activités.SousResultats"
+            android:label="@string/title_activity_sous_resultats"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

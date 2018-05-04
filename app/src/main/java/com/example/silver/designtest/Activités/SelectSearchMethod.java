@@ -10,7 +10,7 @@ import com.example.silver.designtest.R;
 
 public class SelectSearchMethod extends AppCompatActivity {
 
-    Button sections,etablissements,domaines,filieres,all;
+    Button sections,etablissements,domaines,all;
     Intent intent;
 
 
@@ -22,7 +22,6 @@ public class SelectSearchMethod extends AppCompatActivity {
 
         sections = findViewById(R.id.etablissements);
         all = findViewById(R.id.all);
-        filieres = findViewById(R.id.filieres);
         etablissements = findViewById(R.id.etablissements);
         domaines = findViewById(R.id.domaines);
 
@@ -62,14 +61,7 @@ public class SelectSearchMethod extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        filieres.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getApplicationContext(),Resultats.class);
-                intent.putExtra("Methode","filiere");
-                startActivity(intent);
-            }
-        });
+
 
 
 

@@ -5,6 +5,7 @@ import com.example.silver.designtest.Modeles.DomainePOJO;
 import com.example.silver.designtest.Modeles.EtablissementPOJO;
 import com.example.silver.designtest.Modeles.FavorisPOJO;
 import com.example.silver.designtest.Modeles.FilierePOJO;
+import com.example.silver.designtest.Modeles.RegionPOJO;
 import com.example.silver.designtest.Modeles.SectionPOJO;
 import com.example.silver.designtest.Modeles.UserPOJO;
 
@@ -21,7 +22,7 @@ import retrofit2.http.Path;
 public interface ApiInterface
 {
 
-    //API Interface == Controlleur
+    //API Interface == liste des Controlleurs
     //localhost for emulator = 10.0.2.2
 
     // methode = Get
@@ -38,9 +39,9 @@ public interface ApiInterface
     @GET("etablissement/{id}")
     Call<EtablissementPOJO> getEtablissement(@Path("id") int id);
     @GET("etablissement/type/{idType}")
-    Call<EtablissementPOJO> getEtablissementByType(@Path("idType") int id);
+    Call<List<EtablissementPOJO>> getEtablissementByType(@Path("idType") String id);
     @GET("etablissement/region/{idRegion}")
-    Call<EtablissementPOJO> getEtablissementByRegion(@Path("idRegion") int id);
+    Call<List<EtablissementPOJO>> getEtablissementByRegion(@Path("idRegion") String id);
 
 
     // methode = Get
@@ -54,6 +55,8 @@ public interface ApiInterface
 
     @GET("filieres")
     Call<List<FilierePOJO>> getFilieres();
+    @GET("filieres/domaine/{id}")
+    Call<List<FilierePOJO>> getFilieres(@Path("id") String domaine);
     @GET("filieres/{id}")
     Call<FilierePOJO> getFiliere(@Path("id") int id);
 
@@ -90,12 +93,27 @@ public interface ApiInterface
     @GET("favoris/{idUser}")
     Call<FavorisPOJO> getFavoris(@Path("idUser") int id);
 
-    @GET("diplomes/code/{code}")
-    Call<DiplomePOJO> getDiplomeByCode(@Path("code") int code);
+    @FormUrlEncoded
+    @PATCH("favoris/{idUser}")
+    Call<FavorisPOJO> patchFavoris(@Path("idUser") int id,
+                                   @Field("modFirstFav") Integer first,
+                                   @Field("modSecondFav") Integer second,
+                                   @Field("deleteFirst") Integer delFirst,
+                                   @Field("deleteSecond") Integer delSecond
+                                   );
+
+    @GET("diplome/code/{code}")
+    Call<DiplomePOJO> getDiplomeByCode(@Path("code") String code);
     @GET("diplome/{id}")
     Call<DiplomePOJO> getDiplome(@Path("id") int id);
+    @GET("diplomes/filiere/{id}")
+    Call<List<DiplomePOJO>> getDiplomes(@Path("id") String filiere);
+    @GET("diplomes/etablissement/{id}")
+    Call<List<DiplomePOJO>> getDiplomesByEtab(@Path("id") String etablissement);
     @GET("diplomes")
     Call<List<DiplomePOJO>> getDiplomes();
+    @GET("regions")
+    Call<List<RegionPOJO>> getRegions();
 
 
 }

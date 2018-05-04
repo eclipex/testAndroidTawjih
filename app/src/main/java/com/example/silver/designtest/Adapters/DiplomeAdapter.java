@@ -60,9 +60,9 @@ public class DiplomeAdapter extends BaseAdapter {
     public long getItemId(int i) {
 
         if (etablissementPOJO != null)
-            return etablissementPOJO.getId();
+            return Long.parseLong(etablissementPOJO.getCode());
         else
-            return etablissementPOJOS.get(i).getId();
+            return Long.parseLong(etablissementPOJOS.get(i).getCode());
     }
 
     @Override

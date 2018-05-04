@@ -3,7 +3,6 @@ package com.example.silver.designtest.Activités;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,14 +10,12 @@ import android.widget.Toast;
 
 import com.example.silver.designtest.Adapters.DiplomeAdapter;
 import com.example.silver.designtest.Adapters.DomaineAdapter;
-import com.example.silver.designtest.Adapters.EtablissementAdapter;
-import com.example.silver.designtest.Adapters.FiliereAdapter;
+import com.example.silver.designtest.Adapters.RegionAdapter;
 import com.example.silver.designtest.Api.ApiClient;
 import com.example.silver.designtest.Api.ApiInterface;
 import com.example.silver.designtest.Modeles.DiplomePOJO;
 import com.example.silver.designtest.Modeles.DomainePOJO;
-import com.example.silver.designtest.Modeles.EtablissementPOJO;
-import com.example.silver.designtest.Modeles.FilierePOJO;
+import com.example.silver.designtest.Modeles.RegionPOJO;
 import com.example.silver.designtest.R;
 
 import java.util.List;
@@ -42,7 +39,6 @@ public class Resultats extends AppCompatActivity {
 
         final Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-
         String racineRecherche = extras.getString("Methode");
 
         liste = findViewById(R.id.listeRes);
@@ -56,30 +52,25 @@ public class Resultats extends AppCompatActivity {
                 public void onResponse(final Call<List<DiplomePOJO>> call, Response<List<DiplomePOJO>> response) {
 
 
-                    final List<DiplomePOJO> domaines = response.body();
-                    DiplomeAdapter customAdapter = new DiplomeAdapter(domaines, getApplicationContext());
-                    liste.setAdapter(customAdapter);
-                    liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (response.isSuccessful()){
+                        final List<DiplomePOJO> diplomes = response.body();
+                        DiplomeAdapter customAdapter = new DiplomeAdapter(diplomes, getApplicationContext());
+                        liste.setAdapter(customAdapter);
+                        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                            int idSelected = domaines.get(i).getId();
-                            Intent intentDiplome = new Intent(getApplicationContext(),DiplomeSelected.class);
-                            intentDiplome.putExtra("diplomeId",idSelected);
-                            startActivity(intentDiplome);
-
-
-
-
-                        }
-                    });
+                                String codeSelected = diplomes.get(i).getCode();
+                                Intent intentDiplome = new Intent(getApplicationContext(),DiplomeSelected.class);
+                                intentDiplome.putExtra("diplomeCode",codeSelected);
+                                startActivity(intentDiplome);
+                            }
+                        });
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<List<DiplomePOJO>> call, Throwable t) {
-                    Log.i("oui", t.getMessage());
-
-                }
+                public void onFailure(Call<List<DiplomePOJO>> call, Throwable t) {}
 
             });
 
@@ -92,78 +83,74 @@ public class Resultats extends AppCompatActivity {
                 public void onResponse(final Call<List<DomainePOJO>> call, Response<List<DomainePOJO>> response) {
 
 
-                    List<DomainePOJO> domaines = response.body();
+                    if (response.isSuccessful()){
+                        final List<DomainePOJO> domaines = response.body();
 
-                    //Log.i("oui",domaines.get(0).getDesignation());
+                        //Log.i("oui",domaines.get(0).getDesignation());
 
-                    DomaineAdapter customAdapter = new DomaineAdapter(domaines, getApplicationContext());
+                        DomaineAdapter customAdapter = new DomaineAdapter(domaines, getApplicationContext());
 
-                    liste.setAdapter(customAdapter);
-                    liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        liste.setAdapter(customAdapter);
+                        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                            Call<DomainePOJO> domainePOJOCall = apiInterface.getDomaine(i + 1);
-                        }
-                    });
+                                String codeSelected = domaines.get(i).getId();
+                                Intent intentFiliere = new Intent(getApplicationContext(),SousResultats.class);
+                                intentFiliere.putExtra("sousRech","domaine");
+                                intentFiliere.putExtra("domaineCode",codeSelected);
+                                startActivity(intentFiliere);
+
+
+                            }
+                        });
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<List<DomainePOJO>> call, Throwable t) {
-                    Log.i("oui", t.getMessage());
-
-                }
+                public void onFailure(Call<List<DomainePOJO>> call, Throwable t) {}
 
             });
         }
         else if (racineRecherche.equals("etablissement")){
-
-            Call<List<EtablissementPOJO>> listCall = apiInterface.getEtablissements();
-            listCall.enqueue(new Callback<List<EtablissementPOJO>>() {
+            Call<List<RegionPOJO>> callListe = apiInterface.getRegions();
+            callListe.enqueue(new Callback<List<RegionPOJO>>() {
                 @Override
-                public void onResponse(Call<List<EtablissementPOJO>> call, Response<List<EtablissementPOJO>> response) {
+                public void onResponse(final Call<List<RegionPOJO>> call, Response<List<RegionPOJO>> response) {
 
-                    List<EtablissementPOJO> etablissements = response.body();
-                    final EtablissementAdapter etablissementAdapter = new EtablissementAdapter( etablissements , getApplicationContext());
-                    liste.setAdapter(etablissementAdapter);
-                    liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            EtablissementPOJO selectedItem = (EtablissementPOJO) etablissementAdapter.getItem(i);
 
-                        }
-                    });
+                    if (response.isSuccessful()) {
+                        final List<RegionPOJO> regions = response.body();
+
+                        //Log.i("oui",domaines.get(0).getDesignation());
+
+                        RegionAdapter customAdapter = new RegionAdapter(regions, getApplicationContext());
+
+                        liste.setAdapter(customAdapter);
+                        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                String codeSelected = regions.get(i).getId();
+                                Intent intentFiliere = new Intent(getApplicationContext(), SousResultats.class);
+                                intentFiliere.putExtra("sousRech", "region");
+                                intentFiliere.putExtra("idRegion", codeSelected);
+                                startActivity(intentFiliere);
+
+
+                            }
+                        });
+                    }
                 }
-
                 @Override
-                public void onFailure(Call<List<EtablissementPOJO>> call, Throwable t) {
+                    public void onFailure(Call<List<RegionPOJO>> call, Throwable t) {}
+                });
 
-                }
-            });
 
-        }else if (racineRecherche.equals("filiere"))
-        {
-            Call<List<FilierePOJO>> listCall = apiInterface.getFilieres();
-            listCall.enqueue(new Callback<List<FilierePOJO>>() {
-                @Override
-                public void onResponse(Call<List<FilierePOJO>> call, Response<List<FilierePOJO>> response) {
-
-                    List<FilierePOJO> filieres = response.body();
-                    FiliereAdapter filiereAdapter = new FiliereAdapter (filieres, getApplicationContext());
-                    liste.setAdapter(filiereAdapter);
-                }
-
-                @Override
-                public void onFailure(Call<List<FilierePOJO>> call, Throwable t) {
-
-                }
-            });
 
         }
         else{
             Toast.makeText(getApplicationContext(),"Pas encore implementé",Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

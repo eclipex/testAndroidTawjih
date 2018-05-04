@@ -17,6 +17,7 @@
         <item name="android:background">@drawable/button_styles_grad</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
     <style name="buttonStyleDark">
         <item name="android:background">@drawable/btn_dark</item>
         <item name="android:textColor">@color/colorAccent</item>
@@ -25,7 +26,7 @@
     <style name="editTextStyleInscription">
         <item name="android:gravity">center</item>
         <item name="android:textSize">25sp</item>
-        <item name="android:background"> @drawable/edit_text_bordred</item>
+        <item name="android:background">@drawable/edit_text_bordred</item>
     </style>
 
     <style name="textViewStyle">
@@ -39,7 +40,6 @@
         <item name="android:background">@drawable/spinner_shape</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
-
 
 
     <style name="ContentImageBadgeTitle" parent="AppTheme">
@@ -69,5 +69,14 @@
         <item name="android:textColor">@color/titleBadgeTitle</item>
         <item name="android:textSize">12dp</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
