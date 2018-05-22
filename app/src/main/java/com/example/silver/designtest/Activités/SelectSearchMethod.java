@@ -20,7 +20,7 @@ public class SelectSearchMethod extends AppCompatActivity {
         setContentView(R.layout.activity_select_search_method);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        sections = findViewById(R.id.etablissements);
+        sections = findViewById(R.id.personalise);
         all = findViewById(R.id.all);
         etablissements = findViewById(R.id.etablissements);
         domaines = findViewById(R.id.domaines);
@@ -38,8 +38,7 @@ public class SelectSearchMethod extends AppCompatActivity {
         sections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(),Resultats.class);
-                intent.putExtra("Methode","section");
+                intent = new Intent(getApplicationContext(),Recherche.class);
                 startActivity(intent);
             }
         });

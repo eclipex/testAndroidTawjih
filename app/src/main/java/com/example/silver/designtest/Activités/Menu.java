@@ -13,6 +13,7 @@ public class Menu extends AppCompatActivity {
 
 
     Button rech,param,profil,disc;
+
     Intent intent;
 
     @Override

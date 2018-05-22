@@ -78,7 +78,6 @@ public class DiplomeAdapter extends BaseAdapter {
         TextView section = view.findViewById(R.id.section);
         TextView code = view.findViewById(R.id.code);
         TextView domaine = view.findViewById(R.id.domaine);
-        TextView param = view.findViewById(R.id.param);
 
         if( etablissementPOJOS != null)
         {
@@ -91,7 +90,7 @@ public class DiplomeAdapter extends BaseAdapter {
                 String itemEtablissement = etablissement.getEtablissement().toLowerCase();
                 Integer itemCapacite = etablissement.getCapacite();
                 Integer itemScore = etablissement.getScore();
-                String itemParam = etablissement.getParam();
+
                 String itemFilere = etablissement.getFiliere();
                 String itemSection= etablissement.getSection();
 
@@ -100,7 +99,7 @@ public class DiplomeAdapter extends BaseAdapter {
                 etab.setText("Etablissement : "+itemEtablissement);
                 cap.setText("Capacité : "+itemCapacite.toString());
                 score.setText("Score : "+itemScore.toString());
-                param.setText("Test Parametres : "+itemParam);
+
                 filiere.setText("Filiere : "+ itemFilere);
                 section.setText("Section : "+itemSection);
 

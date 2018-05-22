@@ -41,10 +41,11 @@ public class CalculScorePrincipale extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     void applyStyle (EditText item){
 
-        item.setGravity(Gravity.CENTER);
-        item.setTextColor(android.support.v7.appcompat.R.color.accent_material_dark);
-        item.setBackgroundResource(R.drawable.edit_text_background);
-
+        item.setBackgroundResource(R.drawable.loginedittext);
+        item.setTextColor(R.color.colorPrimaryDark);
+        item.setPadding(20,10,10,10);
+        item.setHintTextColor(R.color.colorPrimaryDark);
+        item.setGravity(Gravity.LEFT);
     }
 
 

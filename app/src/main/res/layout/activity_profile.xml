@@ -4,21 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/profile_background_login"
     tools:context="com.example.silver.designtest.Activités.Profil">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/profile_background"></RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="153dp"
+        android:layout_height="156dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
         android:src="@drawable/ic_prof"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,75 +21,131 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_nom"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
         android:text="Nom et prenom"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/bac"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_bacinscr"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
         android:text="Type Bac"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scr" />
+        app:layout_constraintTop_toBottomOf="@+id/cin" />
 
     <TextView
         android:id="@+id/scr"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Score"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <TextView
-        android:id="@+id/mail"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Email"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_scorinsc"
+        android:drawablePadding="20dp"
+        android:text="Score"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bac" />
 
     <TextView
-        android:id="@+id/cin"
-        android:layout_width="wrap_content"
+        android:id="@+id/mail"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="20dp"
         android:text="Email"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/cin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_cin"
+        android:drawablePadding="20dp"
+        android:text="CIN"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mail" />
 
 
     <Button
-        android:gravity="center_vertical"
-        android:drawablePadding="20dp"
-        android:paddingLeft="7dp"
-        android:drawableLeft="@drawable/ic_scorecalc_profile"
         android:id="@+id/changeScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/btn_menu"
+        android:drawableLeft="@drawable/ic_scorecalc_profile"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="7dp"
         android:text="Calcul score"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/modifier"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rech" />
 
     <Button
         android:id="@+id/rech"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_menu"
+        android:drawableLeft="@drawable/ic_search_profile"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="7dp"
+        android:text="Lancer une recherche"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scr" />
+
+    <Button
+        android:id="@+id/modifier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -102,34 +153,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/btn_menu"
-        android:text="Lancer une recherche"
-        android:textAllCaps="false"
-        android:gravity="center_vertical"
-        android:drawablePadding="20dp"
-        android:paddingLeft="7dp"
-        android:drawableLeft="@drawable/ic_search_profile"
-        app:layout_constraintBottom_toTopOf="@+id/changeScore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cin"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:gravity="center_vertical"
-        android:drawablePadding="20dp"
-        android:paddingLeft="7dp"
         android:drawableLeft="@drawable/ic_modify_profile"
-        android:id="@+id/modifier"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/btn_menu"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="7dp"
         android:text="Modifier vos informations"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeScore"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

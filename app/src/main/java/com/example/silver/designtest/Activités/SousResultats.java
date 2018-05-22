@@ -2,10 +2,12 @@ package com.example.silver.designtest.Activités;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.silver.designtest.Adapters.DiplomeAdapter;
 import com.example.silver.designtest.Adapters.EtablissementAdapter;
@@ -26,6 +28,8 @@ import retrofit2.Response;
 public class SousResultats extends AppCompatActivity {
 
     ListView listView;
+    TextView titre;
+    ConstraintLayout loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +37,18 @@ public class SousResultats extends AppCompatActivity {
         setContentView(R.layout.activity_sous_resultats);
 
         final Intent intent = getIntent();
+        loading = findViewById(R.id.loading);
         Bundle extras = intent.getExtras();
+        titre = findViewById(R.id.titreRech);
         listView = findViewById(R.id.listeRes);
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         String racineRecherche = extras.getString("sousRech");
 
         if (racineRecherche.equals("domaine"))
         {
+            titre.setText("Liste des diplomes : ");
             String codeDomaine = extras.getString("domaineCode");
 
 
@@ -49,26 +57,33 @@ public class SousResultats extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<FilierePOJO>> call, Response<List<FilierePOJO>> response) {
                     if (response.isSuccessful()){
+
                         final List<FilierePOJO> filieres = response.body();
-                        final FiliereAdapter filiereAdapter = new FiliereAdapter(filieres,getApplicationContext());
-                        listView.setAdapter(filiereAdapter);
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                String idFiliere = filieres.get(i).getId();
-                                Intent intentFiliere = new Intent(getApplicationContext(),SousResultats.class);
-                                intentFiliere.putExtra("sousRech","filiere");
-                                intentFiliere.putExtra("filiereId",idFiliere);
-                                startActivity(intentFiliere);
-                            }
-                        });
+                        if(filieres.size() == 0)
+                            listView.setEmptyView(findViewById(R.id.notfound));
+                        else {
+                            loading.setVisibility(View.GONE);
+                            final FiliereAdapter filiereAdapter = new FiliereAdapter(filieres,getApplicationContext());
+                            listView.setAdapter(filiereAdapter);
+
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    String idFiliere = filieres.get(i).getId();
+                                    Intent intentFiliere = new Intent(getApplicationContext(),SousResultats.class);
+                                    intentFiliere.putExtra("sousRech","filiere");
+                                    intentFiliere.putExtra("filiereId",idFiliere);
+                                    startActivity(intentFiliere);
+                                }
+                            });
+                        }
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<List<FilierePOJO>> call, Throwable t) {
-
+                    listView.setEmptyView(findViewById(R.id.empty));
                 }
             });
         }else if (racineRecherche.equals("filiere")){
@@ -82,23 +97,30 @@ public class SousResultats extends AppCompatActivity {
                     if (response.isSuccessful())
                     {
                         final List<DiplomePOJO> diplomes = response.body();
-                        DiplomeAdapter customAdapter = new DiplomeAdapter(diplomes, getApplicationContext());
-                        listView.setAdapter(customAdapter);
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (diplomes.size() == 0)
+                            listView.setEmptyView(findViewById(R.id.notfound));
+                        else{
+                            loading.setVisibility(View.GONE);
+                            DiplomeAdapter customAdapter = new DiplomeAdapter(diplomes, getApplicationContext());
+                            listView.setAdapter(customAdapter);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                String codeSelected = diplomes.get(i).getCode();
-                                Intent intentDiplome = new Intent(getApplicationContext(),DiplomeSelected.class);
-                                intentDiplome.putExtra("diplomeCode",codeSelected);
-                                startActivity(intentDiplome);
-                            }
-                        });
+                                    String codeSelected = diplomes.get(i).getCode();
+                                    Intent intentDiplome = new Intent(getApplicationContext(),DiplomeSelected.class);
+                                    intentDiplome.putExtra("diplomeCode",codeSelected);
+                                    startActivity(intentDiplome);
+                                }
+                            });
+                        }
+
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<DiplomePOJO>> call, Throwable t) {
+                    listView.setEmptyView(findViewById(R.id.empty));
 
                 }
             });
@@ -108,6 +130,7 @@ public class SousResultats extends AppCompatActivity {
 
         }else if (racineRecherche.equals("etablissement")){
             String idEtablissement = extras.getString("idEtablissement");
+            titre.setText("Liste des diplomes : ");
             final Call<List<DiplomePOJO>> listCall = apiInterface.getDiplomesByEtab(idEtablissement);
 
             listCall.enqueue(new Callback<List<DiplomePOJO>>() {
@@ -116,24 +139,30 @@ public class SousResultats extends AppCompatActivity {
                     if (response.isSuccessful())
                     {
                         final List<DiplomePOJO> diplomes = response.body();
-                        DiplomeAdapter customAdapter = new DiplomeAdapter(diplomes, getApplicationContext());
-                        listView.setAdapter(customAdapter);
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (diplomes.size() == 0)
+                            listView.setEmptyView(findViewById(R.id.notfound));
+                        else{
+                            loading.setVisibility(View.GONE);
+                            DiplomeAdapter customAdapter = new DiplomeAdapter(diplomes, getApplicationContext());
+                            listView.setAdapter(customAdapter);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                String codeSelected = diplomes.get(i).getCode();
-                                Intent intentDiplome = new Intent(getApplicationContext(),DiplomeSelected.class);
-                                intentDiplome.putExtra("diplomeCode",codeSelected);
-                                startActivity(intentDiplome);
-                            }
-                        });
+                                    String codeSelected = diplomes.get(i).getCode();
+                                    Intent intentDiplome = new Intent(getApplicationContext(),DiplomeSelected.class);
+                                    intentDiplome.putExtra("diplomeCode",codeSelected);
+                                    startActivity(intentDiplome);
+                                }
+                            });
+                        }
+
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<DiplomePOJO>> call, Throwable t) {
-
+                    listView.setEmptyView(findViewById(R.id.empty));
                 }
             });
 
@@ -141,7 +170,7 @@ public class SousResultats extends AppCompatActivity {
         {
 
             String idRegion = extras.getString("idRegion");
-
+            titre.setText("Liste des etablissements : ");
             Call<List<EtablissementPOJO>> listCall = apiInterface.getEtablissementByRegion(idRegion);
             listCall.enqueue(new Callback<List<EtablissementPOJO>>() {
                 @Override
@@ -149,25 +178,34 @@ public class SousResultats extends AppCompatActivity {
 
                     if (response.isSuccessful()){
                         final List<EtablissementPOJO> etablissements = response.body();
-                        EtablissementAdapter etablissementAdapter = new EtablissementAdapter(etablissements,getApplicationContext());
-                        listView.setAdapter(etablissementAdapter);
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (etablissements.size() == 0)
+                            listView.setEmptyView(findViewById(R.id.notfound));
+                        else{
+                            loading.setVisibility(View.GONE);
+                            EtablissementAdapter etablissementAdapter = new EtablissementAdapter(etablissements,getApplicationContext());
+                            listView.setAdapter(etablissementAdapter);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                String idSelected =  etablissements.get(i).getId();
-                                Intent intentFiliere = new Intent(getApplicationContext(),SousResultats.class);
-                                intentFiliere.putExtra("sousRech","etablissement");
-                                intentFiliere.putExtra("idEtablissement",idSelected);
-                                startActivity(intentFiliere);
+                                    String idSelected =  etablissements.get(i).getId();
+                                    Intent intentFiliere = new Intent(getApplicationContext(),SousResultats.class);
+                                    intentFiliere.putExtra("sousRech","etablissement");
+                                    intentFiliere.putExtra("idEtablissement",idSelected);
+                                    startActivity(intentFiliere);
 
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
+
                 }
 
                 @Override
-                public void onFailure(Call<List<EtablissementPOJO>> call, Throwable t) {}
+                public void onFailure(Call<List<EtablissementPOJO>> call, Throwable t) {
+                    listView.setEmptyView(findViewById(R.id.empty));
+
+                }
             });
         }
 

@@ -8,5 +8,9 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/codebold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/robotoregular" />
 
 </font-family>

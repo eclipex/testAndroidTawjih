@@ -16,11 +16,11 @@
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
-        android:background="@drawable/btn_menu"
-        android:drawablePadding="20dp"
-        android:drawableLeft="@drawable/ic_scorecalc"
+        android:layout_marginTop="40dp"
 
+        android:background="@drawable/btn_menu"
+        android:drawableLeft="@drawable/ic_scorecalc"
+        android:drawablePadding="20dp"
         android:gravity="center_vertical|left"
         android:paddingLeft="5dp"
         android:text="Favoris"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <Button
         android:id="@+id/profil"
@@ -85,6 +85,18 @@
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recherche" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_tawjih_login" />
 
 
 </android.support.constraint.ConstraintLayout>

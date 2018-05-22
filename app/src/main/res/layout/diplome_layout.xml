@@ -11,8 +11,7 @@
         android:id="@+id/code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentEnd="true"
+        android:layout_alignEnd="@+id/cap"
         android:layout_alignTop="@+id/score"
         android:drawablePadding="20dp"
         android:drawableRight="@drawable/ic_code"
@@ -25,9 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/section"
-        android:drawableLeft="@drawable/ic_score"
 
+        android:layout_below="@+id/cap"
+        android:drawableLeft="@drawable/ic_score"
         android:drawablePadding="20dp"
         android:gravity="center_vertical"
         android:padding="5dp"
@@ -38,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/code"
+        android:layout_below="@+id/section"
         android:drawableLeft="@drawable/ic_dashboard"
         android:drawablePadding="20dp"
         android:gravity="center_vertical"
@@ -65,7 +64,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/filiere"
         android:text="domaine"
-
 
         android:drawableLeft="@drawable/ic_maps_and_flags"
         android:gravity="center_vertical"
@@ -97,15 +95,4 @@
         android:drawablePadding="20dp"
         android:padding="5dp"/>
 
-    <TextView
-        android:id="@+id/param"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/cap"
-        android:drawableLeft="@drawable/ic_maps_and_flags"
-        android:drawablePadding="20dp"
-        android:gravity="center_vertical"
-        android:padding="5dp"
-        android:text="Param" />
 </RelativeLayout>

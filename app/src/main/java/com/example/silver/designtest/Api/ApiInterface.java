@@ -12,12 +12,14 @@ import com.example.silver.designtest.Modeles.UserPOJO;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface
 {
@@ -46,11 +48,11 @@ public interface ApiInterface
 
     // methode = Get
     // localhost/TawjihAPIRest/web/app_dev/sections
-
     @GET("sections")
     Call<List<SectionPOJO>> getSections();
     @GET("section/{id}")
     Call<SectionPOJO> getSection(@Path("id") int id);
+
 
 
     @GET("filieres")
@@ -73,13 +75,10 @@ public interface ApiInterface
                               @Field("email") String email ,
                               @Field("section") Integer section,
                               @Field("score") Float score);
-
     @GET("user/{cin}/{pass}")
-    Call<UserPOJO> getUser(@Path("cin") int cin,
-                           @Path("pass") String pass);
+    Call<UserPOJO> getUser(@Path("cin") int cin, @Path("pass") String pass);
     @GET("user/{id}")
     Call<UserPOJO> getUser(@Path("id") int id);
-
     @FormUrlEncoded
     @POST("user")
     Call<UserPOJO> addUser(@Field("cin") int cin,
@@ -90,17 +89,15 @@ public interface ApiInterface
                            @Field("section") int section,
                            @Field("score") int score);
 
-    @GET("favoris/{idUser}")
-    Call<FavorisPOJO> getFavoris(@Path("idUser") int id);
 
-    @FormUrlEncoded
-    @PATCH("favoris/{idUser}")
-    Call<FavorisPOJO> patchFavoris(@Path("idUser") int id,
-                                   @Field("modFirstFav") Integer first,
-                                   @Field("modSecondFav") Integer second,
-                                   @Field("deleteFirst") Integer delFirst,
-                                   @Field("deleteSecond") Integer delSecond
-                                   );
+    @GET("favoris/{idUser}")
+    Call<List<FavorisPOJO>> getFavoris(@Path("idUser") int id);
+    @PATCH("favoris/{idFav}")
+    Call<FavorisPOJO> patchFavoris(@Path("idFav") int id);
+    @POST("favoris/{idUser}/{idDiplome}")
+    Call<FavorisPOJO> postFavoris(@Path("idUser") int user,@Path("idDiplome") int diplome);
+    @DELETE("favoris/{idFav}")
+    Call<FavorisPOJO> deleteFavoris(@Path("idFav") int id);
 
     @GET("diplome/code/{code}")
     Call<DiplomePOJO> getDiplomeByCode(@Path("code") String code);
@@ -112,6 +109,10 @@ public interface ApiInterface
     Call<List<DiplomePOJO>> getDiplomesByEtab(@Path("id") String etablissement);
     @GET("diplomes")
     Call<List<DiplomePOJO>> getDiplomes();
+    @GET("diplomes/custom")
+    Call<List<DiplomePOJO>> getDiplomesCustom(@Query("score") int score, @Query("section") int section);
+
+
     @GET("regions")
     Call<List<RegionPOJO>> getRegions();
 

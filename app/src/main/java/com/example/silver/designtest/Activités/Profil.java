@@ -38,7 +38,7 @@ public class Profil extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
 
         nom.setText("Nom : "+sharedPreferences.getString("nomUser","SuperAdmin")+" "+sharedPreferences.getString("prenomUser"," "));
-        scr.setText( "Score : "+ sharedPreferences.getFloat("scoreUser",15));
+        scr.setText( "Score : "+ sharedPreferences.getInt("scoreUser",150));
         section.setText("Section : "+sharedPreferences.getString("sectionUser","SuperAdmin"));
         mail.setText("Email : "+sharedPreferences.getString("emailUser","SuperAdmin@root.Su"));
         cin.setText("Cin : " +sharedPreferences.getInt("cinUser",0));

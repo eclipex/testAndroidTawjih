@@ -1,10 +1,14 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#4A94CF</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
+
+
 
     <style name="editTextStyle">
         <item name="android:gravity">center</item>
@@ -55,21 +59,6 @@
 
     </style>
 
-    <style name="ContentMainBadgeTitle" parent="AppTheme">
-        <item name="android:textColor">@color/contentBadgeTitle</item>
-        <item name="android:textSize">12dp</item>
-    </style>
-
-    <style name="TitleBadgeText" parent="AppTheme">
-        <item name="android:textColor">@color/titleBadgeText</item>
-        <item name="android:textSize">20dp</item>
-    </style>
-
-    <style name="TitleBadgeTitle" parent="AppTheme">
-        <item name="android:textColor">@color/titleBadgeTitle</item>
-        <item name="android:textSize">12dp</item>
-    </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -78,5 +67,15 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="inputGrey">
+        <item name="android:background">@drawable/loginedittext</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textColor">#003968</item>
+        <item name="android:textColorHint">#003968</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+
 
 </resources>

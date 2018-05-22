@@ -7,276 +7,167 @@
     android:background="#ededed"
     tools:context=".Activités.Favoris">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_fav"
+        android:fontFamily="@font/codebold"
+        android:gravity="center"
+        android:text="Favoris"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065">
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/background"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:background="@color/colorbackgroundGrey">
 
+        </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorbackgroundGrey">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:drawableLeft="@drawable/ic_fav"
-                android:fontFamily="@font/codebold"
-                android:gravity="center"
-                android:text="Favoris "
-                android:textSize="40dp"
+                android:indeterminateBehavior="cycle"
+                android:indeterminateDrawable="@drawable/circle_shape"
+                android:indeterminateOnly="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <ListView
+            android:id="@+id/listeRes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarSize="25sp"
+            android:scrollbars="vertical">
+
+        </ListView>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorbackgroundGrey"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/fav_layout"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_connection" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/consult1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:background="@drawable/pagination_fav_start"
-                        android:padding="10dp"
-                        android:text="Consulter le diplome"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent"
-                        tools:ignore="HardcodedText" />
-
-                    <Button
-                        android:id="@+id/delete1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:background="#5296A5"
-                        android:padding="10dp"
-                        android:text="Supprimer de la liste"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent" />
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:background="@drawable/pagination_fav"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="1"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="25sp" />
-
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/filiere1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_diploma_1"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:text="Filiere : Licence Appliquée En technologies informatiques" />
-
-                <TextView
-                    android:id="@+id/etab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_university_1"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Etablissement : Institut superieur des etudes technologiques de zaghouan" />
-
-                <TextView
-                    android:id="@+id/code1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_code"
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Code : 20553"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:id="@+id/section1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_bac"
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Section : Sciences Experimentales" />
-
-                <TextView
-                    android:id="@+id/scr1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_score"
-
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Score : 125" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/fav_layout"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                android:layout_marginTop="8dp"
+                android:text="Veillez verifier votre connexion internet."
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                app:layout_constraintVertical_bias="0.0" />
+        </android.support.constraint.ConstraintLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:orientation="horizontal">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/notfound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorbackgroundGrey"
+            android:visibility="gone">
 
-                    <Button
-                        android:id="@+id/consult2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:background="@drawable/pagination_fav_start"
-                        android:padding="10dp"
-                        android:text="Consulter le diplome"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent" />
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_notfound" />
 
-                    <Button
-                        android:id="@+id/delete2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:background="#5296A5"
-                        android:padding="10dp"
-                        android:text="Supprimer de la liste"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent" />
+            <TextView
+                android:id="@+id/textView21z"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Votre liste de favoris est vide."
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                app:layout_constraintVertical_bias="0.0" />
 
-                    <TextView
-                        android:id="@+id/textView123"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:background="@drawable/pagination_fav"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="2"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="25sp" />
+            <TextView
+                android:id="@+id/textView21z2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Veillez réessayer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21z"
+                app:layout_constraintVertical_bias="0.0" />
+        </android.support.constraint.ConstraintLayout>
 
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/filiere2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_diploma_1"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:text="Filiere : Licence Appliquée En technologies informatiques" />
-
-                <TextView
-                    android:id="@+id/etab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_university_1"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Etablissement : Institut superieur des etudes technologiquese de zaghouan" />
-
-                <TextView
-                    android:id="@+id/code2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_code"
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Code : 20553" />
-
-                <TextView
-                    android:id="@+id/section2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_bac"
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Section : Sciences Experimentales" />
-
-                <TextView
-                    android:id="@+id/scr2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/ic_score"
-
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="25dp"
-                    android:text="Score : 125" />
-
-
-                <!-- bugg scroll view fixes -->
-
-                <!-- bugg scroll view fixes -->
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-    </ScrollView>
-
-
-
-
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

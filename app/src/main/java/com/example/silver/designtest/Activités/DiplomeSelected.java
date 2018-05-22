@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class DiplomeSelected extends AppCompatActivity {
 
-    TextView cap,etab,score,filiere,section,code,domaine,param;
+    TextView cap,etab,score,filiere,section,code,domaine;
     String itemCode,itemDomaine,itemEtablissement,itemParam,itemSection,itemFilere;
     Integer itemCapacite,itemScore;
     Button ajouterFavoris;
@@ -96,19 +96,19 @@ public class DiplomeSelected extends AppCompatActivity {
 
     }
 
-    private void addFav(final Integer idDiplome, final int userId ) {
+    private void addFav(final int idDiplome, final int userId ) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DiplomeSelected.this);
         builder.setMessage("Choissisez l'emplacement du favoris ? ")
                 .setTitle("Favoris")
-                .setPositiveButton("Favoris : 1 ", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ajouter ", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                Toast.makeText(DiplomeSelected.this,"Favoris Mis a jour",Toast.LENGTH_LONG).show();
+                                Toast.makeText(DiplomeSelected.this,"Favoris ajouté",Toast.LENGTH_LONG).show();
 
                                 ApiInterface apiInterface2= ApiClient.getApiClient().create(ApiInterface.class);
-                                Call<FavorisPOJO> favorisPOJOCall = apiInterface2.patchFavoris(userId, idDiplome,null,null,null);
+                                Call<FavorisPOJO> favorisPOJOCall = apiInterface2.postFavoris(userId, idDiplome);
                                 favorisPOJOCall.enqueue(new Callback<FavorisPOJO>() {
                                     @Override
                                     public void onResponse(Call<FavorisPOJO> call, Response<FavorisPOJO> response) {}
@@ -118,20 +118,10 @@ public class DiplomeSelected extends AppCompatActivity {
                             }
                         }
                 )
-                .setNegativeButton("Favoris : 2", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-                        Toast.makeText(DiplomeSelected.this,"Favoris Mis a jour",Toast.LENGTH_LONG).show();
-
-                        ApiInterface apiInterface2= ApiClient.getApiClient().create(ApiInterface.class);
-                        Call<FavorisPOJO> favorisPOJOCall = apiInterface2.patchFavoris(userId, null, idDiplome,null,null);
-                        favorisPOJOCall.enqueue(new Callback<FavorisPOJO>() {
-                            @Override
-                            public void onResponse(Call<FavorisPOJO> call, Response<FavorisPOJO> response) {}
-                            @Override
-                            public void onFailure(Call<FavorisPOJO> call, Throwable t) {}
-                        });
+                        Toast.makeText(DiplomeSelected.this,"Annulé",Toast.LENGTH_LONG).show();
                     }
                 });
 

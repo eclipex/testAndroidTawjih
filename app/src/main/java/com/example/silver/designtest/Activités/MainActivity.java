@@ -2,13 +2,11 @@ package com.example.silver.designtest.Activités;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.silver.designtest.Api.ApiClient;
@@ -23,8 +21,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView inscr,oublie;
-    Button connect;
+
+    Button connect,inscr;
     Intent intent;
     ApiInterface apiInterface;
     EditText cin,pass;
@@ -38,16 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences.Editor editor = getSharedPreferences("User", MODE_PRIVATE).edit();
 
-
-        //font : "CodeLight"
-        TextView tx = findViewById(R.id.title);
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/code.otf");
-        tx.setTypeface(custom_font);
-        //end font load
-
-
         inscr =  findViewById(R.id.inscription);
-        oublie =  findViewById(R.id.motDePasseOublie);
         connect =  findViewById(R.id.connect);
         cin = findViewById(R.id.cin);
         pass = findViewById(R.id.pass);
@@ -57,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
                 public void onClick(View view) {
 
-
+                // Si tous les champs ne sont pas vides
                 if ( cin.getText().toString().equals("") == false && pass.getText().toString().equals("") == false)
                 {
 
@@ -67,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
                     Call <UserPOJO> userPOJOCall = apiInterface.getUser(cinRecupere, passRecupere);
 
+                    //Mode SUPERADMIN.
                     if(cin.getText().toString().equals("5")  && pass.getText().toString().equals("5"))
                     {
                         editor.clear();
@@ -76,19 +66,21 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
+                    //Requette d'authentification
                     userPOJOCall.enqueue(new Callback<UserPOJO>() {
                         @Override
                         public void onResponse(Call<UserPOJO> call, Response<UserPOJO> response) {
 
                             UserPOJO userPOJO = response.body();
-                            //Log.v("body" , response.errorBody().toString());
                             if (userPOJO != null)
                             {
+                                //si coordonnées valides
                                 if (userPOJO.getPass().toString().equals(passRecupere)) {
-                                    Toast.makeText(getApplicationContext(),"Connecté en tant que : " + userPOJO.getEmail(),Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(getApplicationContext(),"Connecté en tant que : " + userPOJO.getNom()+" "+userPOJO.getPrenom(),Toast.LENGTH_LONG).show();
 
                                     editor.putInt("idUser",Integer.parseInt(userPOJO.getId()));
-                                    editor.putFloat("scoreUser",Float.parseFloat(userPOJO.getScore()));
+                                    editor.putInt("scoreUser",Integer.parseInt(userPOJO.getScore()));
                                     editor.putInt("cinUser",Integer.parseInt(userPOJO.getCin()));
                                     editor.putString("nomUser",userPOJO.getNom());
                                     editor.putString("prenomUser",userPOJO.getPrenom());
@@ -100,10 +92,18 @@ public class MainActivity extends AppCompatActivity {
                                     intent = new Intent(getApplicationContext(), Menu.class);
                                     startActivity(intent);
 
-                                } else
-                                    Toast.makeText(getApplicationContext(),"Veillez Verifier vos coordonnées",Toast.LENGTH_LONG).show();
-                            }else
-                                Toast.makeText(getApplicationContext(),"Cin n'exsite pas",Toast.LENGTH_LONG).show();
+                                } else{
+                                    //mot de passe  invalide
+                                    pass.setError("Verifier votre mot de passe.");
+                                    Toast.makeText(getApplicationContext(),"Veillez verifier votre mot de passe.",Toast.LENGTH_LONG).show();
+                                }
+
+                            }else{
+                                //cin n'existe pas
+                                cin.setError("Verifier votre mot de passe.");
+                                Toast.makeText(getApplicationContext(),"La CIN entrée n'existe pas.",Toast.LENGTH_LONG).show();
+
+                            }
                         }
 
                         @Override
@@ -121,23 +121,13 @@ public class MainActivity extends AppCompatActivity {
         inscr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                intent = new Intent(getApplicationContext(), PassOublie.class);
-                startActivity(intent);
-
-            }
-        });
-
-        oublie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
                 intent = new Intent(getApplicationContext(), Inscription.class);
                 startActivity(intent);
+
             }
         });
+
+
 
 
 
